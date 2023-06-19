@@ -1,0 +1,51 @@
+[   
+    {
+        "CheckID" : "-1",
+        "CheckName" : "Clone Repo",
+        "CheckDescription" : "Clones the repo",
+        "CheckModule" : "Invoke-CloneRepo"     
+    },
+    {
+        "CheckID" : "0",
+        "CheckName" : "GetAllBlobs",
+        "CheckDescription" : "Gets all the blob, author , commit details in a table",
+        "CheckModule" : "Invoke-GitGetAllBlobs",        
+        "CheckOutput" : "blobs"
+    },
+    {
+        "CheckID" : "1",
+        "CheckName" : "Git Repo Size",
+        "CheckDescription" : "Determines the checked out size of the repo",
+        "CheckModule" : "check-GitRepoSize"        
+    },
+    {
+        "CheckID" : "2",
+        "CheckName" : "Git Repo Branch Count",
+        "CheckDescription" : "Counts the nunber of branches in the git repo",
+        "CheckModule" : "check-GitBranchCount"        
+    },
+    {
+        "CheckID" : "3",
+        "CheckName" : "Git Repo Largest Blobs",
+        "CheckDescription" : "Gets the top 10 largest blobs, the sha and size in MB",
+        "CheckModule" : "check-GitTop10Blobs"        
+    },
+    {
+        "CheckID" : "4",
+        "CheckName" : "Git Repo Activity",
+        "CheckDescription" : "Determines the most recent commit and branch",
+        "CheckModule" : "check-GitMostRecentCommit"        
+    },
+    {
+        "CheckID" : "5",
+        "CheckName" : "Git DevOps Files",
+        "CheckDescription" : "Looks through all the blobs to find DevOps files for the major platforms",
+        "CheckModule" : "check-GitDevOpsFiles"        
+    },
+    {
+        "CheckID" : "6",
+        "CheckName" : "Git Branching Strategy",
+        "CheckDescription" : "Determines the current branching strategy based on exsiting branch names",
+        "CheckModule" : "check-GitBranches"          
+    }
+]
