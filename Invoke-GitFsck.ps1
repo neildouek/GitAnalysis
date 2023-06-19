@@ -1,50 +1,38 @@
 function Invoke-GitFsck {
-    <#
-    .SYNOPSIS
-    Runs the 'git fsck' command on a Git repository in the specified working directory.
-
-    .DESCRIPTION
-    This function runs the 'git fsck' command on a Git repository in the specified working directory.
-    It checks the integrity and consistency of the repository's objects and their relationships.
-    The function outputs any detected issues and error messages reported by the 'git fsck' command.
-
-    .PARAMETER WorkingDir
-    Specifies the working directory where the Git repository is located.
-
-    .OUTPUTS
-    [bool] True if the checks passed; otherwise, False.
-
-    .EXAMPLE
-    $checksPassed = Invoke-GitFsck -WorkingDir "C:\path\to\working\directory"
-    if ($checksPassed) {
-        Write-Host "Git repository passed the health check"
-    }
-    else {
-        Write-Host "Git repository has issues"
-    }
-    #>
-
-    param (
+    param (        
         [Parameter(Mandatory = $true)]
-        [string]$WorkingDir
+        [string]$RepoPath,
+        [Parameter(Mandatory = $true)]
+        [hashtable]$result
     )
+
 
     try {
         # Change the working directory to the specified path
-        Set-Location -Path $WorkingDir
+        Set-Location -Path $RepoPath
 
         # Run 'git fsck' command
-        & git fsck
+        $objects = git fsck --full --no-reflogs --unreachable --dangling --cache --no-progress --connectivity-only --name-objects
 
-        # Check the exit code to determine the result
-        $checksPassed = $LASTEXITCODE -eq 0
+        if ($objects -eq $null) {
+            $result.Comment = "No issues found."
+            $result.Success = $true
+        } else {
+            $result.Comment = "The following " + $objects.Count + " issue(s) were found."
+            Write-Host $objects
+            $result.Success = $false
+        }
 
-        # Return the result
-        return $checksPassed
+
+        # Check the exit code to determine the result            
+        $result.Value = $objects
+        
     }
     catch {
         Write-Host "An error occurred while running 'git fsck':"
         Write-Host $_.Exception.Message
-        return $false
+        $result.Success = $false;
     }
+
+    return $result
 }

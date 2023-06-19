@@ -1,6 +1,6 @@
 clear
 
-$repoName = "extremedevops"  
+$repoName = "repo-test1"  
 #extremedevops
 #repo-test1
 $repoSource = "https://github.com/neildouek/$repoName.git"
@@ -68,6 +68,11 @@ foreach ($item in $jsonData) {
     $checkDescription = $item.CheckDescription
     $checkModule = $item.CheckModule
     $checkOutput = $item.CheckOutput
+
+    if($checkName -eq "EXIT")
+    {
+        break
+    }
 
     # Perform actions for each item
     Write-Host $NewLine
