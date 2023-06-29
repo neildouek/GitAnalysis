@@ -1,7 +1,7 @@
 function Invoke-GitFsck {
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
@@ -9,12 +9,12 @@ function Invoke-GitFsck {
 
     try {
         # Change the working directory to the specified path
-        Set-Location -Path $RepoPath
+        Set-Location $params.RepoPath
 
         # Run 'git fsck' command
         $objects = git fsck --full --no-reflogs --unreachable --dangling --cache --no-progress --connectivity-only --name-objects
 
-        if ($objects -eq $null) {
+        if ($null -eq $objects) {
             $result.Comment = "No issues found."
             $result.Success = $true
         } else {

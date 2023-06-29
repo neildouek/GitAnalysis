@@ -1,13 +1,13 @@
 function check-GitTop10Blobs {
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
 
     try {
-        Set-Location $RepoPath
+        Set-Location $params.RepoPath
         $blobs = @()
         git ls-tree -r HEAD | ForEach-Object {
         $permissions, $type, $hash, $path = $_ -split '\s+', 4

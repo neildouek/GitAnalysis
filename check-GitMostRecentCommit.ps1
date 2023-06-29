@@ -1,16 +1,16 @@
 
 
 function check-GitMostRecentCommit {
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
  
 
     try {
-        Set-Location $RepoPath        
+        Set-Location $params.RepoPath        
 
         # Initialize a hashtable to store the most recent commit and branch
         $mostRecentCommit = @{

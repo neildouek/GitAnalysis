@@ -1,13 +1,14 @@
 function check-GitRepoSize {
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
    
     try {
 
+        Set-Location $params.RepoPath
         
         $size = (Get-ChildItem -Path $RepoPath -Recurse | Measure-Object -Property Length -Sum).Sum / 1MB
                

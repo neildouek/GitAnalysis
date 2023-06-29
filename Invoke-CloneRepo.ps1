@@ -1,9 +1,9 @@
 function Invoke-CloneRepo {
     
 
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
@@ -13,30 +13,24 @@ function Invoke-CloneRepo {
 
         
 
-        if ($RepoSource -match '^https?://') {
+        if ($params.RepoSource -match '^https?://') {
             # Clone from URL
-            Write-Host "Cloning from URL: $RepoSource"
-            git clone $RepoSource             
+            Write-Host "Cloning from URL: "+$params.repoSource
+            git clone $params.repoSource             
             git fetch --all
             # Verify if the clone operation was successful
             if (-not (Test-Path $WorkingDir)) {
                 throw "Repository not found."
             }
+
+            $result.Success = $true
+            $result.Comment = "The repo was cloned successfully."
         }
         else {
-            # Clone from local path
-            Write-Host "Initializing empty repository in $WorkingDir"
-            & git init $WorkingDir | Out-Null
-
-            Write-Host "Setting origin to $RepoSource"
-            & git -C $WorkingDir remote add origin $RepoSource | Out-Null
-
-            Write-Host "Pulling repository from origin/main to $WorkingDir"
-            & git -C $WorkingDir pull origin main --depth=1 | Out-Null
+            throw
         }
-        $result.Value = "$WorkingDir/repo/"+$RepoPath.Split("/")[-1]            
-        $result.Success = $true
-        $result.Comment = "The repo was cloned successfully."
+                
+      
     }
     catch {
         $result.Success = $false

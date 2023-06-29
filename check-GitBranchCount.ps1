@@ -1,7 +1,7 @@
 function check-GitBranchCount {
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
@@ -9,7 +9,7 @@ function check-GitBranchCount {
     try {
 
                
-        Set-Location $RepoPath        
+        Set-Location $params.RepoPath        
         $branchCount = git branch --format="%(refname:short)" | Measure-Object | Select-Object -ExpandProperty Count
                
         $result.Value = $branchCount

@@ -1,6 +1,6 @@
 clear
 
-$repoName = "repo-test1"  
+$repoName = "MyCustomerApp"  
 #extremedevops
 #repo-test1
 $repoSource = "https://github.com/neildouek/$repoName.git"
@@ -97,9 +97,15 @@ foreach ($item in $jsonData) {
         Elapsed = $null
     }
 
+    $params = @{
+        RepoSource = $repoSource
+        RepoPath = $repoPath
+        DataPath = $dirData
+    }
 
     $stopwatch = [system.diagnostics.stopwatch]::StartNew()
-    InvokeCheck -RepoPath "$repoPath" -result $result
+   
+    InvokeCheck -params $params -result $result
     $stopwatch.Stop()
     $result.Elapsed = $stopwatch.Elapsed.TotalSeconds
 
@@ -119,9 +125,9 @@ foreach ($item in $jsonData) {
         $result | ConvertTo-Json -Depth 4 | Set-Content $checkDataFileName
     }
     else {
-    #Store in the main file  
+        #Store in the main file  
 
-            # Load current data
+        # Load current data
         $currentData = Get-Content -Path $dataFileName | ConvertFrom-Json
 
         # Add new property. Adjust this according to what properties you want to add

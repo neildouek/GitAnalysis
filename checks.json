@@ -6,6 +6,18 @@
         "CheckModule" : "Invoke-CloneRepo"     
     },
     {
+        "CheckID" : "111",
+        "CheckName" : "Code Analysis",
+        "CheckDescription" : "Some code analyis",
+        "CheckModule" : "check-CodeAnalysis"     
+    },    
+    {
+        "CheckID" : "EXIT",
+        "CheckName" : "EXIT",
+        "CheckDescription" : "EXIT",
+        "CheckModule" : "EXIT"     
+    },    
+    {
         "CheckID" : "120",
         "CheckName" : "Git Fsck",
         "CheckDescription" : "Executes git fsck against the repo",
@@ -18,6 +30,12 @@
         "CheckModule" : "Invoke-GitGetAllBlobs",        
         "CheckOutput" : "blobs"
     },
+    {
+        "CheckID" : "135",
+        "CheckName" : "Git Contributors",
+        "CheckDescription" : "The number of contributers and the number of commits",
+        "CheckModule" : "check-GitContributors"        
+    },    
     {
         "CheckID" : "140",
         "CheckName" : "Git Repo Size",

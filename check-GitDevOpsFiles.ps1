@@ -1,14 +1,14 @@
 function check-GitDevOpsFiles {
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
  
 
     try {
-        Set-Location $RepoPath
+        Set-Location $params.RepoPath
        
         $devopsFiles = @("*azure*.yml", "*.yml", ".github/workflows/*", ".gitlab-ci.yml", "Jenkinsfile", "circle.yml", ".travis.yml", "bamboo-specs/bamboo.yml", "azure-pipelines.yml")
 

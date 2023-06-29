@@ -1,7 +1,7 @@
 function Invoke-GitGetAllBlobs {
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
@@ -9,7 +9,7 @@ function Invoke-GitGetAllBlobs {
 
 
     try {
-        Set-Location $RepoPath
+        Set-Location $params.RepoPath
        
         # Define a new array to hold all blobs
 $allBlobs = @()

@@ -1,7 +1,7 @@
 function check-GitBranches {
-    param (        
+    param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
         [hashtable]$result
     )
@@ -9,7 +9,7 @@ function check-GitBranches {
     
 
     try {
-        Set-Location $RepoPath
+        Set-Location $params.repoPath
       
         #Get the branch names (the -r switch is important here and also the where clause)
         $branchNames = git -C $RepoPath branch -r --format="%(refname:lstrip=2)" | where-object { $_ -notmatch 'HEAD' }

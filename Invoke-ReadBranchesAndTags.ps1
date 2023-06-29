@@ -2,10 +2,15 @@ function Invoke-ReadBranchesAndTags {
     
     param (
         [Parameter(Mandatory = $true)]
-        [string]$WorkingDir
+        [hashtable]$params, 
+        [Parameter(Mandatory = $true)]
+        [hashtable]$result
     )
 
     try {
+
+        $WorkingDir = $params.RepoPath
+
         Write-Host "Verifying branches and tags..."
         $branches = git -C $WorkingDir branch --format="%(refname:short)"
         $tags = git -C $WorkingDir tag --list

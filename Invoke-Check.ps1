@@ -2,9 +2,9 @@
 function InvokeCheck {
     param (
         [Parameter(Mandatory = $true)]
-        [string]$RepoPath,
+        [hashtable]$params, 
         [Parameter(Mandatory = $true)]
-        [hashtable]$result      
+        [hashtable]$result
     )
 
     
@@ -21,9 +21,10 @@ function InvokeCheck {
         Write-Host("Load Module $scriptPath")
         . $scriptPath
 
+      
         #Execute the funciton
         Write-Host("Execute Function $functionName")
-        & $functionName $RepoPath $result         
+        & $functionName $params $result
         
        
         
