@@ -6,20 +6,22 @@ function check-GitContributors {
         [hashtable]$result
     )
 
-    
 
     try {
         Set-Location $params.RepoPath
       
-        $contributors = git shortlog -e --summary --numbered | ForEach-Object {
-            $contributor = $_.Trim().Split(' ', 2)
-            $hash = @{
-                'email' = $contributor[1]
-                'commits' = $contributor[0]
+        $contributors = git shortlog -sne | ForEach-Object {
+            $parts = $_ -split '\t'
+            $commits = $parts[0].Trim()
+            $nameEmailParts = $parts[1].Trim() -split '<'
+            $name = $nameEmailParts[0].Trim()
+            $email = $nameEmailParts[1].Trim('>')
+            @{
+                'name' = $name
+                'email' = $email
+                'commits' = $commits
             }
-            @{ $contributor[1] = $hash }
         }
-
         $result.Value = $contributors       
         $result.Success = $true
         $result.Comment = "The repo contains "+$contributors.Count + " contributor(s)."

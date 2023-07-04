@@ -12,12 +12,6 @@
         "CheckModule" : "check-CodeAnalysis"     
     },    
     {
-        "CheckID" : "EXIT",
-        "CheckName" : "EXIT",
-        "CheckDescription" : "EXIT",
-        "CheckModule" : "EXIT"     
-    },    
-    {
         "CheckID" : "120",
         "CheckName" : "Git Fsck",
         "CheckDescription" : "Executes git fsck against the repo",

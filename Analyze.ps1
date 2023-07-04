@@ -1,9 +1,14 @@
 clear
 
-$repoName = "MyCustomerApp"  
+#$repoName = "code-examples-csharp"
+#$repoSource = "https://github.com/docusign/$repoName.git"
+
+
+$repoName = "MyCustomerApp"
+$repoSource = "https://github.com/neildouek/$repoName.git"
+#MyCustomerApp
 #extremedevops
 #repo-test1
-$repoSource = "https://github.com/neildouek/$repoName.git"
 
 
 $workingDir = "/Users/neildouek1/Documents/fujitsu/dev/workingdir"
@@ -26,7 +31,7 @@ RemoveDirectory -Path $dirRepo
 mkdir $dirRepo
 mkdir $dirData
 
-$dataFileName = $dirData + "/data.json"
+$dataFileName = $dirData + "/$repoName-data.json"
 
 
 Set-Location $dirRepo
@@ -120,7 +125,7 @@ foreach ($item in $jsonData) {
     $result
 
     if($null -ne $checkOutput){
-        #Store as a refernce file in data 
+        #Store as a reference file in data 
         $checkDataFileName = "$dirData/"+$checkOutput+".json"
         $result | ConvertTo-Json -Depth 4 | Set-Content $checkDataFileName
     }
